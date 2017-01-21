@@ -11,7 +11,7 @@ Page({
     // this.setData({
     //     posts_key:postsData.postList
     // });
-
+ 
     this.setData({
       postList: postsData.postList
     });
