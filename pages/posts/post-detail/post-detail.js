@@ -57,7 +57,7 @@ Page({
         this.getPostsCollectedSyc();
     },
 
-    //异步
+    //异步收藏
     getPostsCollectedAsy: function () {
         var that = this;
         wx.getStorage({
@@ -72,7 +72,7 @@ Page({
             }
         })
     },
-    //同步
+    //同步收藏
     getPostsCollectedSyc: function () {
         var postsCollected = wx.getStorageSync('posts_collected');
         var postCollected = postsCollected[this.data.currentPostId];
