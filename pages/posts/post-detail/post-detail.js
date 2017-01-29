@@ -10,8 +10,8 @@ Page({
         var postData = postsData.postList[postId];
         this.setData({
             postData: postData
-        })
-        var postsCollected = wx.getStorageSync('posts_collected')
+        });
+        var postsCollected = wx.getStorageSync('posts_collected');
         if (postsCollected) {
             var postCollected = postsCollected[postId]
             this.setData({
@@ -31,25 +31,7 @@ Page({
         }
         this.setMusicMonitor();
 
-    },
 
-    //音乐播放
-    setMusicMonitor: function () {
-        var that = this;
-        wx.onBackgroundAudioPlay(function () {
-            that.setData({
-                isPlayingMusic: true
-            })
-            app.globalData.g_isPlayingMusic = true;
-            app.globalData.g_currentMusicPostId = that.data.currentPostId;
-        });
-        wx.onBackgroundAudioPause(function () {
-            that.setData({
-                isPlayingMusic: false
-            })
-            app.globalData.g_isPlayingMusic = false;
-            app.globalData.g_currentMusicPostId = null;
-        })
     },
 
     onColletionTap: function (event) {
@@ -82,7 +64,7 @@ Page({
         this.showToast(postsCollected, postCollected);
     },
 
-
+    //界面交互反馈“模式弹窗”
     showModal: function (postsCollected, postCollected) {
         var that = this;
         wx.showModal({
@@ -105,7 +87,6 @@ Page({
             }
         })
     },
-
     showToast: function (postsCollected, postCollected) {
         //更新文章是否的缓存值
         wx.setStorageSync('posts_collected', postsCollected);
@@ -160,8 +141,23 @@ Page({
                 isPlayingMusic: true
             })
         }
-    }
-
-
-
+    },
+    //解决音乐播放全局问题
+    setMusicMonitor: function () {
+        var that = this;
+        wx.onBackgroundAudioPlay(function () {
+            that.setData({
+                isPlayingMusic: true
+            })
+            app.globalData.g_isPlayingMusic = true;
+            app.globalData.g_currentMusicPostId = that.data.currentPostId;
+        });
+        wx.onBackgroundAudioPause(function () {
+            that.setData({
+                isPlayingMusic: false
+            })
+            app.globalData.g_isPlayingMusic = false;
+            app.globalData.g_currentMusicPostId = null;
+        })
+    },
 }) 

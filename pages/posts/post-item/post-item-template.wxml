@@ -9,9 +9,9 @@
         <text class="post-content">{{content}}</text>
         <view class="post-like"> 
             <image class="post-like-image" src="/images/icon/chat.png"></image> 
-            <text class="post-like-font">{{reading}}</text>
+            <text class="post-like-font">{{collection}}</text>
             <image class="post-like-image" src="/images/icon/view.png"></image>
-            <text class="post-like-font">{{collection}}</text> 
+            <text class="post-like-font">{{reading}}</text> 
         </view>
     </view>
 </template>
