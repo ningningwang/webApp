@@ -1,0 +1,8 @@
+<import src="../stars/stars-template.wxml" />
+<template name="movieTemplate">
+    <view class="movie-container">
+        <image class="movie-img" src="/images/animal.jpg"></image>
+        <text class="movie-title">神奇动物在哪里</text>
+        <template is="starsTemplate" />
+    </view>
+</template>
