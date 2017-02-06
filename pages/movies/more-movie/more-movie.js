@@ -4,7 +4,10 @@ var util = require('../../../utils/util.js');
 Page({
   data: {
     navigateTitle: "",
-    movies:{}
+    movies:{},
+    requestUrl:"",
+    totalCount:0,
+    isEmpty:true,
   },
   onLoad: function (options) {
     var category = options.category;
@@ -21,7 +24,13 @@ Page({
         dataUrl = app.globalData.doubanBase + "/v2/movie/top250";
         break;
     }
+    this.data.requestUrl = dataUrl;
     util.http(dataUrl, this.processDoubanData)
+  },
+
+  onScrollLower:function(event){
+    var nextUrl = this.data.requestUrl + "?start=" + this.data.totalCount + "&count=20";
+    util.http(nextUrl, this.processDoubanData);
   },
 
   processDoubanData: function (moviesDouban) {
@@ -41,9 +50,17 @@ Page({
       }
       movies.push(temp)
     }
-
+    var totalMovies = {};
+    if(!this.data.isEmpty){
+      totalMovies = this.data.movies.concat(movies);
+    }
+    else{
+      totalMovies = movies;
+      this.data.isEmpty = false;
+    }
+    this.data.totalCount += 20;
     this.setData({
-      movies: movies
+      movies: totalMovies
     });
   },
 
