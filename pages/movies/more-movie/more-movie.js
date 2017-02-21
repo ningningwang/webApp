@@ -4,10 +4,10 @@ var util = require('../../../utils/util.js');
 Page({
   data: {
     navigateTitle: "",
-    movies:{},
-    requestUrl:"",
-    totalCount:0,
-    isEmpty:true,
+    movies: {},
+    requestUrl: "",
+    totalCount: 0,
+    isEmpty: true,
   },
   onLoad: function (options) {
     var category = options.category;
@@ -36,13 +36,13 @@ Page({
   //   wx.showNavigationBarLoading();
   // },
 
-  onReachBottom:function(event){
+  onReachBottom: function (event) {
     var nextUrl = this.data.requestUrl + "?start=" + this.data.totalCount + "&count=20";
     util.http(nextUrl, this.processDoubanData);
     wx.showNavigationBarLoading();
   },
 
-  onPullDownRefresh:function(event){
+  onPullDownRefresh: function (event) {
     var refreshUrl = this.data.requestUrl + "?start=0&count=20";
     this.data.movies = {};
     this.data.isEmpty = true;
@@ -69,10 +69,10 @@ Page({
       movies.push(temp)
     }
     var totalMovies = {};
-    if(!this.data.isEmpty){
+    if (!this.data.isEmpty) {
       totalMovies = this.data.movies.concat(movies);
     }
-    else{
+    else {
       totalMovies = movies;
       this.data.isEmpty = false;
     }
@@ -88,5 +88,11 @@ Page({
     wx.setNavigationBarTitle({
       title: this.data.navigateTitle
     })
-  }
+  },
+  onMovieTap: function (event) {
+    var movieId = event.currentTarget.dataset.movieid;
+    wx.navigateTo({
+      url: "../movie-detail/movie-detail?id=" + movieId,
+    })
+  },
 })
