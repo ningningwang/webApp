@@ -50,6 +50,8 @@
 			}else{
 				Dom.top_nav.hide();
 				Dom.bottom_nav.hide();
+				Dom.font_container.hide();
+				Dom.font_button.removeClass('current');
 			}
 		});
 
